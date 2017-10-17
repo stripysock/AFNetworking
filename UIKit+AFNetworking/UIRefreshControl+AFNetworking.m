@@ -85,9 +85,6 @@
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidCompleteNotification object:nil];
 
     if (task) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
-#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
         if (task.state == NSURLSessionTaskStateRunning) {
             [self.refreshControl beginRefreshing];
 
@@ -97,7 +94,6 @@
         } else {
             [self.refreshControl endRefreshing];
         }
-#pragma clang diagnostic pop
     }
 }
 #endif
@@ -109,9 +105,6 @@
     [notificationCenter removeObserver:self name:AFNetworkingOperationDidFinishNotification object:nil];
 
     if (operation) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
-#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
         if (![operation isFinished]) {
             if ([operation isExecuting]) {
                 [self.refreshControl beginRefreshing];
@@ -122,7 +115,6 @@
             [notificationCenter addObserver:self selector:@selector(af_beginRefreshing) name:AFNetworkingOperationDidStartNotification object:operation];
             [notificationCenter addObserver:self selector:@selector(af_endRefreshing) name:AFNetworkingOperationDidFinishNotification object:operation];
         }
-#pragma clang diagnostic pop
     }
 }
 
@@ -130,19 +122,13 @@
 
 - (void)af_beginRefreshing {
     dispatch_async(dispatch_get_main_queue(), ^{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
         [self.refreshControl beginRefreshing];
-#pragma clang diagnostic pop
     });
 }
 
 - (void)af_endRefreshing {
     dispatch_async(dispatch_get_main_queue(), ^{
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
         [self.refreshControl endRefreshing];
-#pragma clang diagnostic pop
     });
 }
 

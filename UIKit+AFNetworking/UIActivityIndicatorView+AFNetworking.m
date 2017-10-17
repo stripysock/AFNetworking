@@ -86,15 +86,11 @@
     if (task) {
         if (task.state != NSURLSessionTaskStateCompleted) {
             
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
-#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
             if (task.state == NSURLSessionTaskStateRunning) {
                 [self.activityIndicatorView startAnimating];
             } else {
                 [self.activityIndicatorView stopAnimating];
             }
-#pragma clang diagnostic pop
 
             [notificationCenter addObserver:self selector:@selector(af_startAnimating) name:AFNetworkingTaskDidResumeNotification object:task];
             [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingTaskDidCompleteNotification object:task];
@@ -115,15 +111,11 @@
     if (operation) {
         if (![operation isFinished]) {
             
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wreceiver-is-weak"
-#pragma clang diagnostic ignored "-Warc-repeated-use-of-weak"
             if ([operation isExecuting]) {
                 [self.activityIndicatorView startAnimating];
             } else {
                 [self.activityIndicatorView stopAnimating];
             }
-#pragma clang diagnostic pop
 
             [notificationCenter addObserver:self selector:@selector(af_startAnimating) name:AFNetworkingOperationDidStartNotification object:operation];
             [notificationCenter addObserver:self selector:@selector(af_stopAnimating) name:AFNetworkingOperationDidFinishNotification object:operation];
